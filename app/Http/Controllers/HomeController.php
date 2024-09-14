@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\comment;
+use App\Models\contributor;
 use App\Models\idea;
 use App\Models\ideaRequest;
 use App\Models\profile;
@@ -157,6 +158,27 @@ class HomeController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Comment added successfully!');
+    }
+
+    public function approval($id)
+    {
+        $request = IdeaRequest::findOrFail($id);
+
+        contributor::create([
+            'idea_id' => $request->idea_id,
+            'user_id' => $request->user_id,
+        ]);
+        $request->delete();
+
+        return redirect()->back()->with('success', 'Request approved successfully.');
+    }
+
+    public function reject($id)
+    {
+        $request = ideaRequest::findOrFail($id);
+        $request->delete();
+
+        return redirect()->back()->with('success', 'Request has been rejected.');
     }
 
 }

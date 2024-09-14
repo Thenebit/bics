@@ -35,12 +35,18 @@
                         </p>
                     </div>
                     <div class="mt-5 d-flex justify-content-center gap-3">
-                        <button class="btn btn-outline-success rounded-circle" title="Approve">
-                            <i class="bx bx-check"></i>
-                        </button>
-                        <button class="btn btn-outline-danger rounded-circle" title="Reject">
-                            <i class="bx bx-x"></i>
-                        </button>
+                        <form method="POST" action="{{ url('approvereq', $request->id) }}">
+                            @csrf
+                            <button class="btn btn-outline-success rounded-circle" title="Approve">
+                                <i class="bx bx-check"></i>
+                            </button>
+                        </form>
+                        <form method="POST" action="{{ url('rejectreq', $request->id) }}">
+                            @csrf
+                            <button class="btn btn-outline-danger rounded-circle" title="Reject">
+                                <i class="bx bx-x"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -37,6 +37,9 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/requestsbics', [HomeController::class, 'requestb'])->name('requestsbics');
     Route::post('/savereq/{id}', [HomeController::class, 'saveRequest'])->name('request.save');
 
+    Route::post('/approvereq/{id}', [HomeController::class, 'approval'])->name('approvalReq');
+    Route::post('/rejectreq/{id}', [HomeController::class, 'reject'])->name('rejectReq');
+
     Route::get('/profilebics', [HomeController::class, 'profile'])->name('profilebics');
     Route::post('/profile', [HomeController::class, 'saveProfile'])->name('profile.save');
 
