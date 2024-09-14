@@ -3,6 +3,11 @@
 @section('content')
 <div class="container mt-5 mb-3">
     <div class="row">
+        @if($bicdeas->isEmpty())
+            <div class="col-md-12 text-center">
+                <p class="alert alert-info">You have not shared any business ideas yet!</p>
+            </div>
+        @else
         @forelse ($bicdeas as $idea)
         <div class="col-md-4">
             <div class="card p-3 mb-2">
@@ -27,27 +32,34 @@
                     </div>
                 </div>
                 <div class="mt-5">
-                    <a href="#" class="heading-link">
+                    <a href="{{ url('comment', $idea->id) }}" class="heading-link">
                         <p class="heading">
                             {{ Str::limit($idea->description, 250) }}
                         </p>
                     </a>
                     <div class="mt-5 d-flex justify-content-center gap-3">
-                        <button class="btn btn-outline-primary rounded-circle">
-                            <i class="bx bx-edit"></i>
-                        </button>
-                        <button class="btn btn-outline-danger rounded-circle">
-                            <i class="bx bx-trash"></i>
-                        </button>
+                        <form method="GET" action="{{ url('edit', $idea->id) }}">
+
+                            <button class="btn btn-outline-primary rounded-circle">
+                                <i class="bx bx-edit"></i>
+                            </button>
+                        </form>
+                        <form method="POST" action="{{ url('remove', $idea->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-outline-danger rounded-circle">
+                                <i class="bx bx-trash"></i>
+                            </button>
+                        </form>
                     </div>
                     <div class="mt-3 d-flex justify-content-between">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-users"></i>
-                            <span class="ms-2">32</span>
+                            <span class="ms-2">{{ $idea->contributor->count() }}</span>
                         </div>
                         <div class="d-flex align-items-center">
                             <i class="bx bxs-comment"></i>
-                            <span class="ms-2">10</span>
+                            <span class="ms-2">{{ $idea->comments->count() }}</span>
                         </div>
                     </div>
                 </div>
@@ -60,6 +72,7 @@
             </div>
         </div>
         @endforelse
+        @endif
     </div>
 </div>
 <div class="spacer"></div>

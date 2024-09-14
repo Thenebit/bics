@@ -24,7 +24,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $bicdeas = idea::withCount('comments')->get();
+        $bicdeas = idea::withCount('comments', 'contributor')->get();
 
         return view('home', compact('bicdeas'));
     }
@@ -105,7 +105,11 @@ class HomeController extends Controller
 
     public function mybic()
     {
-        $bicdeas = idea::where('user_id', auth()->id())->get();
+
+        $bicdeas = idea::withCount('comments', 'contributor')
+            ->where('user_id', auth()->id())
+            ->get();
+
         return view('user.mybics', compact('bicdeas'));
     }
 
@@ -153,12 +157,27 @@ class HomeController extends Controller
 
     public function contrib()
     {
-        return view('user.contribics');
+        $currentUserId = Auth::id();
+        // Get all approved contributions for the current user from the 'contributor' table
+        $contributors = contributor::with(['idea', 'idea.user'])
+        ->where('user_id', $currentUserId) // Filter by the current user ID
+        ->get();
+
+        return view('user.contribics', compact('contributors'));
+    }
+
+    public function cancel($id)
+    {
+        $request = contributor::findOrFail($id);
+        $request->delete();
+
+        return redirect()->back()->with('success', 'Removed from contributing to business idea.');
     }
 
     public function comment($id)
     {
-        $idea = idea::findorFail($id);
+        $idea = idea::withCount('contributor')
+            ->findorFail($id);
 
         return view('user.comment', compact('idea'));
     }
@@ -199,5 +218,42 @@ class HomeController extends Controller
 
         return redirect()->back()->with('success', 'Request has been rejected.');
     }
+
+    public function edit($id)
+    {
+        $idea = idea::findOrFail($id);
+
+        return view('user.sharebics', compact('idea'));
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'bicmsg' => 'required|string',
+            'bipotance' => 'required',
+        ]);
+
+        $idea = idea::findOrFail($id);
+        $idea->update([
+            'description' => $request->input('bicmsg'),
+            'importance' => $request->input('bipotance'),
+        ]);
+
+        return redirect()->route('home')->with('success', 'Business idea updated successfully!');
+    }
+
+    public function remove($id)
+    {
+        $idea = idea::findOrFail($id);
+
+        if (Auth::id() !== $idea->user_id) {
+            return redirect()->back()->with('error', 'You are not authorized to delete this idea.');
+        }
+        $idea->delete();
+
+        return redirect()->back()->with('success', 'Business idea deleted successfully.');
+    }
+
 
 }

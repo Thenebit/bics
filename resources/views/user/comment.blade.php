@@ -21,23 +21,25 @@
     </div>
 
     <div class="mb-3">
-        <!-- Comments Count -->
+        <!-- Comments/collaborator Count -->
         <div class="mb-2">
-            <i class="bx bx-comment"></i>
+            <i class="fas fa-users"></i>
+            <span id="contributor-count" style="padding-right: 10px;">{{ $idea->contributor->count() }} </span>
+            <i class="bx bxs-comment"></i>
             <span id="comments-count">{{ $idea->comments->count() }} Comments</span>
         </div>
 
         <!-- Collaborators -->
         <div class="collaborators d-flex">
-            {{-- @foreach($idea->collaborators as $collaborator)
+            @foreach($idea->contributor as $collaborator)
                 @php
-                    $collaboratorName = $collaborator->name;
+                    $collaboratorName = $collaborator->user->name;
                     $collaboratorNameParts = explode(' ', $collaboratorName);
                     $collaboratorInitials = strtoupper(substr($collaboratorNameParts[0], 0, 1) . (isset($collaboratorNameParts[1]) ? substr($collaboratorNameParts[1], 0, 1) : ''));
                 @endphp
-                <div class="initials-circle me-2">{{ $collaboratorInitials }}</div>
-            @endforeach --}}
-            <img src="bi.png" alt="collaborators" />
+                <div class="initials-circle me-2"> {{ $collaboratorInitials }}</div>
+            @endforeach
+
         </div>
     </div>
 
@@ -51,6 +53,11 @@
 
     <div class="comments-section">
         <h5 class="mb-3">User Comments</h5>
+        @if($idea->comments->isEmpty())
+            <div class="col-md-12 text-center">
+                <p class="alert alert-info">There is no feedback to the business idea yet!</p>
+            </div>
+        @else
 
         @foreach($idea->comments as $comment)
             @php
@@ -69,6 +76,7 @@
                 <p>{{ $comment->content }}</p>
             </div>
         @endforeach
+        @endif
     </div>
 </div>
 

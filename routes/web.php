@@ -44,9 +44,14 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::post('/profile', [HomeController::class, 'saveProfile'])->name('profile.save');
 
     Route::get('/mybics', [HomeController::class, 'mybic'])->name('mybics');
+    Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('edit');
+    Route::delete('/remove/{id}', [HomeController::class, 'remove'])->name('bics.remove');
+    Route::put('/update/{id}', [HomeController::class, 'update'])->name('bics.update');
+
     Route::get('/contributorbics', [HomeController::class, 'contributor'])->name('contributorbics');
     Route::post('/rejectcontributor/{id}', [HomeController::class, 'rejectcontributor'])->name('rejectContrib');
 
     Route::get('/contribics', [HomeController::class, 'contrib'])->name('contribics');
+    Route::post('/cancel/{id}', [HomeController::class, 'cancel'])->name('cancelbic');
 
 });

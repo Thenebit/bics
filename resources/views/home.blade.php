@@ -39,7 +39,7 @@
                         <div class="mt-3 d-flex justify-content-between">
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-users"></i>
-                                <span class="ms-2">32</span> <!-- Contributors count -->
+                                <span class="ms-2">{{ $idea->contributor->count() }}</span> <!-- Contributors count -->
                             </div>
                             <div class="d-flex align-items-center">
                                 <i class="bx bxs-comment"></i>

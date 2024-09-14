@@ -29,5 +29,10 @@ class idea extends Model
     {
         return $this->belongsTo(Profile::class, 'user_id');
     }
-    
+
+    public function contributor()
+    {
+        return $this->hasMany(Contributor::class);
+    }
+
 }

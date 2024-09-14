@@ -3,6 +3,11 @@
 @section('content')
 <div class="container mt-5 mb-3">
     <div class="row">
+        @if($contributors->isEmpty())
+            <div class="col-md-12 text-center">
+                <p class="alert alert-info">You have no contributors approved to any business ideas yet!</p>
+            </div>
+        @else
         @foreach ($contributors as $contributor) <!-- Assuming $contributors is passed to the view -->
         <div class="col-md-4">
             <div class="card p-3 mb-2">
@@ -47,6 +52,7 @@
             </div>
         </div>
         @endforeach
+        @endif
     </div>
 </div>
 

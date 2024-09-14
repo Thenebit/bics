@@ -3,6 +3,11 @@
 @section('content')
 <div class="container mt-5 mb-3">
     <div class="row">
+        @if($requests->isEmpty())
+            <div class="col-md-12 text-center">
+                <p class="alert alert-info">There's no requests to any business idea yet!</p>
+            </div>
+        @else
         @foreach ($requests as $request)
         <div class="col-md-4">
             <div class="card p-3 mb-2">
@@ -52,6 +57,7 @@
             </div>
         </div>
         @endforeach
+        @endif
     </div>
 </div>
 
