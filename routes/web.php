@@ -31,7 +31,9 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/sharebics', [HomeController::class, 'share'])->name('bics.share');
     Route::post('/save', [HomeController::class, 'saveShare'])->name('saveShare');
 
-    Route::get('/comment', [HomeController::class, 'comment'])->name('commentbics');
+    Route::get('/comment/{id}', [HomeController::class, 'comment'])->name('commentbics');
+    Route::post('/store/{id}', [HomeController::class, 'storeComment'])->name('store.comment');
+
 
     Route::get('/requestsbics', [HomeController::class, 'requestb'])->name('requestsbics');
     Route::get('/profilebics', [HomeController::class, 'profile'])->name('profilebics');

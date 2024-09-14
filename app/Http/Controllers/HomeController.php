@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\comment;
 use App\Models\idea;
 use App\Models\profile;
 use Illuminate\Http\Request;
@@ -104,9 +105,27 @@ class HomeController extends Controller
         return view('user.contribics');
     }
 
-    public function comment()
+    public function comment($id)
     {
-        return view('user.comment');
+        $idea = idea::findorFail($id);
+
+        return view('user.comment', compact('idea'));
+    }
+
+
+    public function storeComment(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:500',
+        ]);
+
+        comment::create([
+            'idea_id' => $id,
+            'user_id' => auth()->id(),
+            'content' => $request->input('comment'),
+        ]);
+
+        return redirect()->back()->with('success', 'Comment added successfully!');
     }
 
 }

@@ -26,7 +26,7 @@
                     <div class="badge"> <span>{{ ucfirst($idea->importance) }}</span> </div> <!-- Display the importance level -->
                 </div>
                 <div class="mt-5">
-                    <a href="#" class="heading-link">
+                    <a href="{{ url('comment', ['id' => $idea->id]) }}" class="heading-link">
                         <p class="heading">
                             {{ Str::limit($idea->description, 250) }} <!-- Limiting the idea description to 150 characters -->
                         </p>
