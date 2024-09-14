@@ -31,10 +31,12 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/sharebics', [HomeController::class, 'share'])->name('bics.share');
     Route::post('/save', [HomeController::class, 'saveShare'])->name('saveShare');
 
+    Route::get('/comment', [HomeController::class, 'comment'])->name('commentbics');
+
     Route::get('/requestsbics', [HomeController::class, 'requestb'])->name('requestsbics');
     Route::get('/profilebics', [HomeController::class, 'profile'])->name('profilebics');
     Route::post('/profile', [HomeController::class, 'saveProfile'])->name('profile.save');
-    
+
     Route::get('/mybics', [HomeController::class, 'mybic'])->name('mybics');
     Route::get('/contributorbics', [HomeController::class, 'contributor'])->name('contributorbics');
     Route::get('/contribics', [HomeController::class, 'contrib'])->name('contribics');

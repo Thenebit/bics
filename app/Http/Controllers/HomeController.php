@@ -104,4 +104,9 @@ class HomeController extends Controller
         return view('user.contribics');
     }
 
+    public function comment()
+    {
+        return view('user.comment');
+    }
+
 }
