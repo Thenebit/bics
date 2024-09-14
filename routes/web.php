@@ -34,8 +34,9 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/comment/{id}', [HomeController::class, 'comment'])->name('commentbics');
     Route::post('/store/{id}', [HomeController::class, 'storeComment'])->name('store.comment');
 
-
     Route::get('/requestsbics', [HomeController::class, 'requestb'])->name('requestsbics');
+    Route::post('/savereq/{id}', [HomeController::class, 'saveRequest'])->name('request.save');
+
     Route::get('/profilebics', [HomeController::class, 'profile'])->name('profilebics');
     Route::post('/profile', [HomeController::class, 'saveProfile'])->name('profile.save');
 

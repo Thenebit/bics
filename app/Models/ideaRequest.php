@@ -16,11 +16,11 @@ class ideaRequest extends Model
 
     public function idea()
     {
-        return $this->belongsTo(Idea::class);
+        return $this->belongsTo(Idea::class, 'idea_id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

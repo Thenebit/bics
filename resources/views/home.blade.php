@@ -32,7 +32,10 @@
                         </p>
                     </a>
                     <div class="mt-5">
-                        <button class="btn btn-primary w-100">Contributor Request</button>
+                        <form method="POST" action="{{ url('savereq', $idea->id) }}">
+                            @csrf
+                            <button class="btn btn-primary w-100">Contributor Request</button>
+                        </form>
                         <div class="mt-3 d-flex justify-content-between">
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-users"></i>
@@ -40,7 +43,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <i class="bx bxs-comment"></i>
-                                <span class="ms-2">10</span> <!-- Comments count -->
+                                <span class="ms-2">{{ $idea->comments->count() }}</span> <!-- Comments count -->
                             </div>
                         </div>
                     </div>

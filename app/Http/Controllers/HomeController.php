@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\comment;
 use App\Models\idea;
+use App\Models\ideaRequest;
 use App\Models\profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,7 +23,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $bicdeas = idea::all();
+        $bicdeas = idea::withCount('comments')->get();
 
         return view('home', compact('bicdeas'));
     }
@@ -50,7 +52,18 @@ class HomeController extends Controller
 
     public function requestb()
     {
-        return view('user.requestsbics');
+        $currentUserId = Auth::id();
+
+        // Get all idea IDs shared by the current user
+        $sharedIdeaIds = idea::where('user_id', $currentUserId)
+            ->pluck('id'); // Get all IDs of the ideas shared by the current user
+
+    // Get all requests related to the shared ideas
+        $requests = ideaRequest::with(['idea', 'idea.user', 'idea.user.profile'])
+            ->whereIn('idea_id', $sharedIdeaIds)
+            ->get();
+
+        return view('user.requestsbics', compact('requests'));
     }
 
     public function profile()
@@ -93,6 +106,24 @@ class HomeController extends Controller
     {
         $bicdeas = idea::where('user_id', auth()->id())->get();
         return view('user.mybics', compact('bicdeas'));
+    }
+
+    public function saveRequest(Request $request, $id)
+    {
+
+        if (ideaRequest::where('idea_id', $id)->where('user_id', Auth::id())->exists()) {
+            return redirect()->back()->with('error',
+            'You have already requested to be a contributor for this idea.'
+            );
+        }
+
+        ideaRequest::create([
+            'idea_id' => $id,
+            'user_id' => Auth::id(),
+        ]);
+
+        return redirect()->back()->with('success', 'Your request has been submitted.');
+
     }
 
     public function contributor()
