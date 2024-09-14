@@ -45,6 +45,8 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('/mybics', [HomeController::class, 'mybic'])->name('mybics');
     Route::get('/contributorbics', [HomeController::class, 'contributor'])->name('contributorbics');
+    Route::post('/rejectcontributor/{id}', [HomeController::class, 'rejectcontributor'])->name('rejectContrib');
+
     Route::get('/contribics', [HomeController::class, 'contrib'])->name('contribics');
 
 });

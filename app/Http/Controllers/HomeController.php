@@ -59,7 +59,7 @@ class HomeController extends Controller
         $sharedIdeaIds = idea::where('user_id', $currentUserId)
             ->pluck('id'); // Get all IDs of the ideas shared by the current user
 
-    // Get all requests related to the shared ideas
+        // Get all requests related to the shared ideas
         $requests = ideaRequest::with(['idea', 'idea.user', 'idea.user.profile'])
             ->whereIn('idea_id', $sharedIdeaIds)
             ->get();
@@ -129,7 +129,26 @@ class HomeController extends Controller
 
     public function contributor()
     {
-        return view('user.contributorbics');
+        $currentUserId = Auth::id();
+
+        // Get all idea IDs shared by the current user
+        $sharedIdeaIds = idea::where('user_id', $currentUserId)
+            ->pluck('id'); // Get all IDs of the ideas shared by the current user
+
+        // Get all requests related to the shared ideas
+        $contributors = contributor::with(['idea', 'idea.user', 'idea.user.profile'])
+            ->whereIn('idea_id', $sharedIdeaIds)
+            ->get();
+
+        return view('user.contributorbics', compact('contributors'));
+    }
+
+    public function rejectcontributor($id)
+    {
+        $request = contributor::findOrFail($id);
+        $request->delete();
+
+        return redirect()->back()->with('success', 'Request has been rejected.');
     }
 
     public function contrib()

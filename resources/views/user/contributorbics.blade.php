@@ -3,44 +3,54 @@
 @section('content')
 <div class="container mt-5 mb-3">
     <div class="row">
-
+        @foreach ($contributors as $contributor) <!-- Assuming $contributors is passed to the view -->
         <div class="col-md-4">
             <div class="card p-3 mb-2">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex flex-row align-items-center">
-                        <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
+                        <div class="icon">
+                            @php
+                                $name = $contributor->user->name;
+                                $nameParts = explode(' ', $name);
+                                $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+                            @endphp
+                            <div class="initials-circle">{{ $initials }}</div>
+                        </div>
                         <div class="ms-2 c-details">
-                            <h6 class="mb-0">Mailchimp</h6> <span>1 day ago</span>
+                            <h6 class="mb-0">{{ $contributor->user->name }}</h6>
+                            <span>{{ $contributor->created_at->diffForHumans() }}</span>
                         </div>
                     </div>
-                    <div class="badge"> <span>Design</span> </div>
+                    <div class="badge"> <span>{{ ucfirst($contributor->idea->importance) }}</span> </div>
                 </div>
                 <div class="mt-5">
                     <a href="#" class="heading-link">
                         <p class="heading">
-                            Business Idea: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
+                            Business Idea: {{ Str::limit($contributor->idea->description, 100) }}
                         </p>
                     </a>
                     <div class="mt-4">
                         <h6>User Description:</h6>
                         <p class="user-description">
-                            Aliquam erat volutpat. Phasellus in ipsum et lorem pellentesque luctus.
-                            Praesent volutpat arcu nec augue condimentum, a tincidunt erat tincidunt.
-                            Sed consectetur nulla nec ipsum lacinia, et sodales lacus gravida.
+                            {{ Str::limit($contributor->user->profile->description ?? 'No description available', 200) }}
                         </p>
                     </div>
                     <div class="mt-5 d-flex justify-content-center gap-3">
-                        <button class="btn btn-outline-danger rounded-circle" title="Reject">
-                            <i class="bx bx-x"></i>
-                        </button>
+                        <form method="POST" action="{{ url('rejectcontributor', $contributor->id) }}">
+                            @csrf
+                            <button class="btn btn-outline-danger rounded-circle" title="Reject">
+                                <i class="bx bx-x"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        
+        @endforeach
     </div>
 </div>
+
+<div class="spacer"></div>
 
 <footer class="bg-dark text-white text-center py-3 fixed-bottom">
     <p class="mb-0">Made with ❤️ by BicS</p>

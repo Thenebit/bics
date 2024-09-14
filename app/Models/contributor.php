@@ -13,4 +13,14 @@ class contributor extends Model
         'idea_id',
         'user_id'
     ];
+
+    public function idea()
+    {
+        return $this->belongsTo(Idea::class, 'idea_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

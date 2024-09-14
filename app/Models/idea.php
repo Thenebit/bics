@@ -26,7 +26,8 @@ class idea extends Model
     }
 
     public function profile()
-{
-    return $this->belongsTo(Profile::class, 'user_id');
-}
+    {
+        return $this->belongsTo(Profile::class, 'user_id');
+    }
+    
 }
