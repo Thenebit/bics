@@ -123,7 +123,7 @@
 <body>
     <div class="wrapper">
         <div class="logo">
-            <img src="{{ asset('image/logo2.png') }}" alt="Bic Logo">
+            <img src="{{ asset('image/logo3.png') }}" alt="Bic Logo">
         </div>
         <div class="text-center mt-4 name">
             BicS

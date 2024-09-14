@@ -124,7 +124,7 @@
 <body>
     <div class="wrapper">
         <div class="logo">
-            <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt="Twitter Logo">
+            <img src="{{ asset('image/logo3.png') }}" />
         </div>
         <div class="text-center mt-4 name">
             BicS
