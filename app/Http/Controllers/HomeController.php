@@ -9,6 +9,7 @@ use App\Models\ideaRequest;
 use App\Models\profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -38,9 +39,11 @@ class HomeController extends Controller
     {
         // Validate the form inputs
         $request->validate([
-            'bicmsg' => 'required|string|max:500',
+            'bicmsg' => 'required',
             'bipotance' => 'required',
         ]);
+
+        Log::info('Saving business idea:', $request->all());
 
         $idea = new idea();
         $idea->description = $request->input('bicmsg');
@@ -223,7 +226,7 @@ class HomeController extends Controller
     {
         $idea = idea::findOrFail($id);
 
-        return view('user.sharebics', compact('idea'));
+        return view('user.editbic', compact('idea'));
 
     }
 

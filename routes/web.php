@@ -24,13 +24,14 @@ Auth::routes();
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-    
+
+
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/sharebics', [HomeController::class, 'share'])->name('bics.share');
-    Route::post('/save', [HomeController::class, 'saveShare'])->name('saveShare');
+    Route::get('/sharebics', [HomeController::class, 'share'])->name('share');
+    Route::post('/save', [HomeController::class, 'saveShare'])->name('bic.save');
 
     Route::get('/comment/{id}', [HomeController::class, 'comment'])->name('commentbics');
     Route::post('/store/{id}', [HomeController::class, 'storeComment'])->name('store.comment');
