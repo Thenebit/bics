@@ -69,6 +69,20 @@
         .text2 {
             color: #a5aec0
         }
+
+        .initials-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+
 </style>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css'>
 <link rel="stylesheet" href="./style.css">
@@ -89,9 +103,7 @@
 
 	<div class="flex items-center justify-between w-full h-16 px-10 bg-white bg-opacity-75">
         <div class="flex items-center">
-            <svg class="w-8 h-8 text-indigo-600 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-            </svg>
+            <img src="{{ asset('image/logo3.png') }}" alt="Icon" class="w-8 h-8">
             <div class="ml-10 flex items-center">
                 <a class="mx-2 text-sm font-semibold text-indigo-700" style="text-decoration: none"  href="{{ route('admin.dashboard') }}">Dashboard</a>
             </div>
@@ -128,6 +140,11 @@
 	</div>
 
 	@yield('content')
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @yield('scripts')
 
 </div>
 

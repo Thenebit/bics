@@ -25,7 +25,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $bicdeas = idea::withCount('comments', 'contributor')->get();
+        $bicdeas = idea::withCount('comments', 'contributor')->latest()->get();
 
         return view('home', compact('bicdeas'));
     }
@@ -65,6 +65,7 @@ class HomeController extends Controller
         // Get all requests related to the shared ideas
         $requests = ideaRequest::with(['idea', 'idea.user', 'idea.user.profile'])
             ->whereIn('idea_id', $sharedIdeaIds)
+            ->latest()
             ->get();
 
         return view('user.requestsbics', compact('requests'));
@@ -111,6 +112,7 @@ class HomeController extends Controller
 
         $bicdeas = idea::withCount('comments', 'contributor')
             ->where('user_id', auth()->id())
+            ->latest()
             ->get();
 
         return view('user.mybics', compact('bicdeas'));
@@ -145,6 +147,7 @@ class HomeController extends Controller
         // Get all requests related to the shared ideas
         $contributors = contributor::with(['idea', 'idea.user', 'idea.user.profile'])
             ->whereIn('idea_id', $sharedIdeaIds)
+            ->latest()
             ->get();
 
         return view('user.contributorbics', compact('contributors'));
@@ -164,6 +167,7 @@ class HomeController extends Controller
         // Get all approved contributions for the current user from the 'contributor' table
         $contributors = contributor::with(['idea', 'idea.user'])
         ->where('user_id', $currentUserId) // Filter by the current user ID
+        ->latest()
         ->get();
 
         return view('user.contribics', compact('contributors'));

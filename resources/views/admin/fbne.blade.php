@@ -35,7 +35,11 @@
                 {{ $idea->importance }}
             </span>  {{--  Idea importance level --}}
             <h4 class="mt-3 text-sm font-medium">
-                {{ Str::limit($idea->description, 250) }}
+                <a href="{{ url('forum', $idea->id) }}" class="heading-link">
+                    <p class="heading">
+                        {{ Str::limit($idea->description, 250) }}
+                    </p>
+                </a>
             </h4>  {{-- Ideas description--}}
             <div class="flex items-center w-full mt-3 text-xs font-medium text-gray-400">
                 <div class="flex items-center">

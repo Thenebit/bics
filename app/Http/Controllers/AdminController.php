@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\comment;
 use App\Models\idea;
 use App\Models\profile;
 use App\Models\User;
@@ -38,5 +39,27 @@ class AdminController extends Controller
         $ideas = Idea::where('user_id', $user->id)->latest()->get();
 
         return view('admin.projectbics', compact('user', 'ideas'));
+    }
+
+    public function feedback($id)
+    {
+        $idea = Idea::with('comments', 'user')->findOrFail($id);
+
+        return view('admin.feedback', compact('idea'));
+    }
+
+    public function storeFeedback(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:500',
+        ]);
+
+        comment::create([
+            'idea_id' => $id,
+            'user_id' => auth()->id(),
+            'content' => $request->input('comment'),
+        ]);
+
+        return redirect()->back()->with('success', 'Comment added successfully!');
     }
 }
