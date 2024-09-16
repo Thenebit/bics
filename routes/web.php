@@ -25,9 +25,9 @@ Auth::routes();
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/projectbics/{id}', [AdminController::class, 'projectBic'])->name('project.bics');
+
     Route::get('/forum/{id}', [AdminController::class, 'feedback'])->name('forum.bic');
     Route::post('/storefeed/{id}', [AdminController::class, 'storeFeedback'])->name('forum.save');
-
 
 });
 

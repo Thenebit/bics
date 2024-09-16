@@ -12,10 +12,13 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
+
     public function test_example()
     {
         $response = $this->get('/');
 
         $response->assertStatus(200);
+
     }
 }
