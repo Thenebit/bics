@@ -29,5 +29,14 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('students', 'totalstudent', 'ideas', 'ideasCountByDepartment'));
     }
 
-    
+    public function projectBic($id)
+    {
+        $user = User::with('profile', 'ideas')
+            ->findOrFail($id);
+
+        // Get all the ideas shared by this user
+        $ideas = Idea::where('user_id', $user->id)->latest()->get();
+
+        return view('admin.projectbics', compact('user', 'ideas'));
+    }
 }

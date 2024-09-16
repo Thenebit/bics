@@ -8,7 +8,9 @@
         <div class="flex flex-col pb-2 overflow-auto">
             <div class="relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100" draggable="true">
                 <h4 class="mt-3 text-sm font-medium">
-                    {{ Str::limit( $student->profile->description ?? 'No description available', 140) }}
+                    <a href="{{ url('projectbics', $student->id) }}" class="heading-link">
+                        {{ Str::limit( $student->profile->description ?? 'No description available', 140) }}
+                    </a>
                 </h4>
                 <div class="flex items-center w-full mt-3 text-xs font-medium text-gray-400">
                     <p>{{ $student->name }}</p>

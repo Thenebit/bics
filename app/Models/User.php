@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function ideas()
+    {
+        return $this->belongsTo(Idea::class, 'user_id', 'id');
+    }
 }
