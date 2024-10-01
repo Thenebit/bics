@@ -32,6 +32,8 @@
                     </div>
                 </div>
                 <div class="mt-5">
+                    <h6>Title: {{ $idea->title}} </h6>
+                    <h6>Descriptipn:</h6>
                     <a href="{{ url('comment', $idea->id) }}" class="heading-link">
                         <p class="heading">
                             {{ Str::limit($idea->description, 250) }}

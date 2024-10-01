@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card">
+<div class="card position-relative">
     <h3 class="text-center mb-4">Business Idea Details</h3>
+
+    <a href="{{ route('home') }}" class="btn btn-primary btn-floating position-absolute" id="back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
 
     <div class="idea-details mb-4">
         <div class="d-flex align-items-center">
@@ -17,17 +21,37 @@
                 <span>{{ $idea->created_at->diffForHumans() }}</span>
             </div>
         </div>
+        <h6 class="mt-2">Title: {{ $idea->title }} </h6>
         <p id="idea-description" class="mt-2">{{ $idea->description }}</p>
     </div>
 
     <div class="mb-3">
         <!-- Comments/collaborator Count -->
-        <div class="mb-2">
+        {{-- <div class="mb-2">
             <i class="fas fa-users"></i>
             <span id="contributor-count" style="padding-right: 10px;">{{ $idea->contributor->count() }} </span>
             <i class="bx bxs-comment"></i>
             <span id="comments-count">{{ $idea->comments->count() }} Comments</span>
+
+        </div> --}}
+
+        <div class="mb-2 d-flex align-items-center justify-content-between">
+            <div>
+                <i class="fas fa-users"></i>
+                <span id="contributor-count" style="padding-right: 10px;">
+                    {{ $idea->contributor->count() }}
+                </span>
+                <i class="bx bxs-comment"></i>
+                <span id="comments-count">{{ $idea->comments->count() }} Comments</span>
+            </div>
+            <div>
+                <!-- 'See More' of users busisness ideas -->
+                <a href="{{ url('viewall', $idea->user->id) }}" style="border-color: red" class="btn btn-outline-primary btn-sm">
+                    See More
+                </a>
+            </div>
         </div>
+
 
         <!-- Collaborators -->
         <div class="collaborators d-flex">

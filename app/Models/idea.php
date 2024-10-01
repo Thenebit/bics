@@ -10,6 +10,7 @@ class idea extends Model
     use HasFactory;
 
     protected $fillable = [
+        'title',
         'description',
         'importance',
         'user_id'

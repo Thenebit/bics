@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    
+
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet"> -->
 
     <style>
@@ -127,6 +127,49 @@
             height: 80px;
         }
 
+        #back-btn {
+            top: 50%;
+            left: -50px;
+            z-index: 10;
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+        }
+
+        #back-btn:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .btn-floating {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .float-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .float-button:hover {
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
 
     </style>
 </head>

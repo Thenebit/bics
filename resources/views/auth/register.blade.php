@@ -23,6 +23,17 @@
             background: #ecf0f3;
         }
 
+        .background-image {
+            background-image: url('landing/images/c3.jpg'); /* Path to your background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .wrapper {
             max-width: 400px;
             min-height: 550px;
@@ -122,6 +133,7 @@
     </style>
 </head>
 <body>
+    <div class="background-image">
     <div class="wrapper">
         <div class="logo">
             <img src="{{ asset('image/logo3.png') }}" />
@@ -167,6 +179,7 @@
         <div class="text-center fs-6">
             <a href="{{ route('login') }}">Already have an account? Login</a>
         </div>
+    </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->

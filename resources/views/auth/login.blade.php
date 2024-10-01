@@ -21,6 +21,18 @@
 
         body {
             background: #ecf0f3;
+            /* background: url('landing/images/c5.jpg'); */
+        }
+
+        .background-image {
+            background-image: url('landing/images/c3.jpg'); /* Path to your background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .wrapper {
@@ -121,6 +133,7 @@
     </style>
 </head>
 <body>
+    <div class="background-image">
     <div class="wrapper">
         <div class="logo">
             <img src="{{ asset('image/logo3.png') }}" alt="Bic Logo">
@@ -160,6 +173,7 @@
         <div class="text-center fs-6">
             <a href="{{ route('register') }}">Sign up</a>
         </div>
+    </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->

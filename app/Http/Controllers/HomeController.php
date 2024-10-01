@@ -7,6 +7,7 @@ use App\Models\contributor;
 use App\Models\idea;
 use App\Models\ideaRequest;
 use App\Models\profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -25,7 +26,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        $bicdeas = idea::withCount('comments', 'contributor')->latest()->get();
+        $bicdeas = idea::withCount('comments', 'contributor')
+        ->latest()
+        ->get();
 
         return view('home', compact('bicdeas'));
     }
@@ -39,6 +42,7 @@ class HomeController extends Controller
     {
         // Validate the form inputs
         $request->validate([
+            'title' => 'required',
             'bicmsg' => 'required',
             'bipotance' => 'required',
         ]);
@@ -46,6 +50,7 @@ class HomeController extends Controller
         Log::info('Saving business idea:', $request->all());
 
         $idea = new idea();
+        $idea->title = $request->input('title');
         $idea->description = $request->input('bicmsg');
         $idea->importance = $request->input('bipotance');
         $idea->user_id = auth()->id();
@@ -120,6 +125,12 @@ class HomeController extends Controller
 
     public function saveRequest(Request $request, $id)
     {
+        $idea = Idea::findOrFail($id);
+
+        // Check if the logged-in user is the owner of the idea
+        if ($idea->user_id == Auth::id()) {
+            return redirect()->back()->with('error', 'You cannot request to contribute to your own idea.');
+        }
 
         if (ideaRequest::where('idea_id', $id)->where('user_id', Auth::id())->exists()) {
             return redirect()->back()->with('error',
@@ -262,5 +273,15 @@ class HomeController extends Controller
         return redirect()->back()->with('success', 'Business idea deleted successfully.');
     }
 
+    public function viewall($id)
+    {
+        $user = User::with('profile', 'ideas')
+            ->findOrFail($id);
+
+        // Get all the ideas shared by this user
+        $ideas = Idea::where('user_id', $user->id)->latest()->get();
+
+        return view('user.seeall', compact('user', 'ideas'));
+    }
 
 }

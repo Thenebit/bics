@@ -3,6 +3,8 @@
 @section('content')
 <div class="container mt-5 mb-3">
 
+    <h3>Welcome: {{ ucfirst(Auth::user()->name) }} <i>!</i> </h3>
+
     <div class="row">
         @foreach ($bicdeas as $idea)
         <div class="col-md-4">
@@ -26,15 +28,20 @@
                     <div class="badge"> <span>{{ ucfirst($idea->importance) }}</span> </div> <!-- Display the importance level -->
                 </div>
                 <div class="mt-5">
-                    <a href="{{ url('comment', ['id' => $idea->id]) }}" class="heading-link">
-                        <p class="heading">
-                            {{ Str::limit($idea->description, 250) }} <!-- Limiting the idea description to 150 characters -->
-                        </p>
-                    </a>
+                    <h4 class="heading">
+                        Title: {{ $idea->title }}
+                    </h4>
+                    <h6>Description:</h6>
+                    <p class="heading">
+                        {{ Str::limit($idea->description, 250) }} <!-- Limiting the idea description to 250 characters -->
+                        <a href="{{ url('comment', ['id' => $idea->id]) }}" style="color: red" class="heading-link">
+                            Read more
+                        </a>
+                    </p>
                     <div class="mt-5">
                         <form method="POST" action="{{ url('savereq', $idea->id) }}">
                             @csrf
-                            <button class="btn btn-primary w-100">Contributor Request</button>
+                            <button class="btn btn-primary w-100">Collaborator</button>
                         </form>
                         <div class="mt-3 d-flex justify-content-between">
                             <div class="d-flex align-items-center">
@@ -54,44 +61,6 @@
     </div>
 </div>
 
-<!-- Footer Section -->
-<footer class="bg-dark text-white pt-4">
-  <div class="container">
-    <div class="row">
-      <!-- About Section -->
-      <div class="col-md-4">
-          <h5>About BicS</h5>
-          <p>BicS is a platform that connects students across various faculties and programs to share and collaborate on business ideas. Whether you're looking to contribute or need collaborators, BicS brings innovation together.</p>
-      </div>
-      <!-- Navigation Links -->
-      <div class="col-md-4">
-          <h5>Quick Links</h5>
-          <ul class="list-unstyled">
-              <li><a href="index.html" class="text-white text-decoration-none">Inbox</a></li>
-              <li><a href="sharebics.html" class="text-white text-decoration-none">Share Idea</a></li>
-              <li><a href="mybics.html" class="text-white text-decoration-none">Sent Ideas</a></li>
-              <li><a href="requestsbics.html" class="text-white text-decoration-none">Requests</a></li>
-              <li><a href="contributorbics.html" class="text-white text-decoration-none">Contributors</a></li>
-              <li><a href="contribics.html" class="text-white text-decoration-none">Contributions</a></li>
-          </ul>
-      </div>
-      <!-- Social Media Section -->
-      <div class="col-md-4">
-          <h5>Follow Us</h5>
-          <ul class="list-unstyled d-flex gap-3">
-              <li><a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a></li>
-              <li><a href="#" class="text-white"><i class="fab fa-twitter"></i></a></li>
-              <li><a href="#" class="text-white"><i class="fab fa-instagram"></i></a></li>
-              <li><a href="#" class="text-white"><i class="fab fa-linkedin"></i></a></li>
-          </ul>
-      </div>
-    </div>
-    <!-- Footer Bottom Section -->
-    <div class="text-center pt-3">
-      <p class="mb-0">&copy; 2024 BicS. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
 {{-- Modal to show success message --}}
 @if (session('success'))
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -121,6 +90,12 @@
             var successModal = new bootstrap.Modal(document.getElementById('successModal'));
             successModal.show();
         @endif
+
+        @if (session('error'))
+            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        @endif
+
     });
 </script>
 @endsection

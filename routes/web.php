@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Contracts\Pipeline\Hub;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +26,10 @@ Route::get('/', function () {
 Route::get('/abt', function () {
     return view('about');
 });
+
 Auth::routes();
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -44,6 +50,8 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('/requestsbics', [HomeController::class, 'requestb'])->name('requestsbics');
     Route::post('/savereq/{id}', [HomeController::class, 'saveRequest'])->name('request.save');
+
+    Route::get('/viewall/{id}', [HomeController::class, 'viewall'])->name('vewAll');
 
     Route::post('/approvereq/{id}', [HomeController::class, 'approval'])->name('approvalReq');
     Route::post('/rejectreq/{id}', [HomeController::class, 'reject'])->name('rejectReq');

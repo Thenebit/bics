@@ -16,9 +16,10 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('department')->default('Unknown')->change();
+            $table->string('department');
             $table->text('description')->nullable();
             $table->timestamps();
+            // ->default('Unknown')->change()
         });
     }
 

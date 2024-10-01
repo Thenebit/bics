@@ -136,7 +136,7 @@
     </div>
 
 	<div class="px-10 mt-6">
-		<h1 class="text-2xl font-bold">BicS Board</h1>
+		<h1 class="text-2xl font-bold">Welcome Admin: {{ Auth::user()->name }}</h1>
 	</div>
 
 	@yield('content')
