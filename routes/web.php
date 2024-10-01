@@ -20,6 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/abt', function () {
+    return view('about');
+});
 Auth::routes();
 
 Route::middleware(['auth', 'admin'])->group(function () {
