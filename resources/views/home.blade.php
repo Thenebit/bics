@@ -5,7 +5,9 @@
 
     <h3>Welcome: {{ ucfirst(Auth::user()->name) }} <i>!</i> </h3>
 
-    <div class="row">
+    <input type="text" id="searchInput" placeholder="Search Ideas..." class="form-control mb-3" />
+
+    <div class="row" id="ideasContainer">
         @foreach ($bicdeas as $idea)
         <div class="col-md-4">
             <div class="card p-3 mb-2">
@@ -85,6 +87,23 @@
 
 @section('scripts')
 <script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        var filter = this.value.toLowerCase(); // Get the search input
+        var cards = document.querySelectorAll('.card'); // Select all card elements
+
+        // Loop through each card
+        cards.forEach(function(card) {
+            var title = card.querySelector('h4.heading').textContent.toLowerCase();
+            var description = card.querySelector('p.heading').textContent.toLowerCase(); 
+            // Check if the title or description includes the filter text
+            if (title.includes(filter) || description.includes(filter)) {
+                card.parentElement.style.display = ''; // Show the card
+            } else {
+                card.parentElement.style.display = 'none'; // Hide the card
+            }
+        });
+    });
+
     document.addEventListener('DOMContentLoaded', function () {
         @if (session('success'))
             var successModal = new bootstrap.Modal(document.getElementById('successModal'));
@@ -97,5 +116,10 @@
         @endif
 
     });
+
 </script>
+<script>
+
+</script>
+
 @endsection
