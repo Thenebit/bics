@@ -79,7 +79,7 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="blog-section-title">
-          <h2>Articles</h2>
+          <h2>Business Ideas</h2>
           <p>View the latest Business Ideas</p>
         </div>
         <article class="blog-post">

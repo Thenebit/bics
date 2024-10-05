@@ -54,7 +54,7 @@ class LoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('user.dashboard');
     }
 
     public function logout(Request $request)

@@ -41,6 +41,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('user.dashboard');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/sharebics', [HomeController::class, 'share'])->name('share');
     Route::post('/save', [HomeController::class, 'saveShare'])->name('bic.save');

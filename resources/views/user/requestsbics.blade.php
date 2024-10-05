@@ -28,6 +28,9 @@
                     </div>
                     <div class="badge"> <span>{{ ucfirst($request->idea->importance) }}</span> </div>                 </div>
                 <div class="mt-5">
+                    <h4 class="heading">
+                        Title: {{ $request->idea->title }}
+                    </h4>
                     <a href="#" class="heading-link">
                         <p class="heading">
                             Business Idea: {{ Str::limit($request->idea->description, 100) }}

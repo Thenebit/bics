@@ -178,7 +178,7 @@
      <!-- Navigation Bar -->
      <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">BicS</a>
+            <a class="navbar-brand" href="{{ route('user.dashboard') }}">BicS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -187,39 +187,39 @@
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}"><i class="bx bx-envelope"></i> Inbox</a>
+                            <a class="nav-link" style="color: #ffffff" href="{{ route('home') }}"><i class="bx bx-envelope"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('sharebics')}}"><i class="bx bx-plus-circle"></i> Share Idea</a>
+                            <a class="nav-link" style="color: #ffffff" href="{{ url('sharebics')}}"><i class="bx bx-plus-circle"></i> Share Idea</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('mybics')}}"><i class="bx bx-send"></i> Sent Ideas</a>
+                            <a class="nav-link" style="color: #ffffff" href="{{ url('mybics')}}"><i class="bx bx-send"></i> Sent Ideas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('requestsbics')}}"><i class="bx bx-message-square-detail"></i> Requests</a>
+                            <a class="nav-link" style="color: #ffffff" href="{{ url('requestsbics')}}"><i class="bx bx-message-square-detail"></i> Requests</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('contributorbics')}}"><i class="bx bx-group"></i> Contributors</a>
+                            <a class="nav-link" style="color: #ffffff" href="{{ url('contributorbics')}}"><i class="bx bx-group"></i> Contributors</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('contribics')}}"><i class="bx bx-task"></i> Contributions</a>
+                            <a class="nav-link" style="color: #ffffff" href="{{ url('contribics')}}"><i class="bx bx-task"></i> Contributions</a>
                         </li>
 
                         <!-- Notifications will be added later -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('profilebics')}}"><i class="bx bx-user"></i> Profile</a>
+                            <a class="nav-link" style="color: #ffffff" href="{{ url('profilebics')}}"><i class="bx bx-user"></i> Profile</a>
                         </li>
 
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" style="color: #ffffff" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" style="color: #ffffff" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                             @else
@@ -228,7 +228,7 @@
                                     {{ Auth::user()->name }}
                                 </a> -->
 
-                                <a class="nav-link" href="{{ route('logout') }}"
+                                <a class="nav-link" style="color: #ffffff" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                      <i class="bx bx-log-out"></i> {{__('Logout') }}

@@ -30,6 +30,9 @@
                 </div>
                 <div class="mt-5">
                     <a href="#" class="heading-link">
+                        <h4 class="heading">
+                            Title: {{ $contributor->idea->title }}
+                        </h4>
                         <p class="heading">
                             Business Idea: {{ Str::limit($contributor->idea->description, 100) }}
                         </p>

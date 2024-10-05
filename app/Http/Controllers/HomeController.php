@@ -24,6 +24,16 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function dashboard()
+    {
+        $data = idea::with('user')
+                ->latest()
+                    ->take(3)
+                        ->get();
+
+        return view('user.dashboard', compact('data'));
+    }
+
     public function index()
     {
         $bicdeas = idea::withCount('comments', 'contributor')
